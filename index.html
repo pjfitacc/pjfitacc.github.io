@@ -9,6 +9,17 @@
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/formbold.css">
     <script>
+        window.addEventListener("pageshow", (event) => {
+            if (event.persisted) {
+                hideSpinnerAndMessage();
+            }
+        });
+
+        function hideSpinnerAndMessage() {
+            document.getElementById('donation-page').style.display = "block";
+            document.getElementById('loading-element').style.display = "none";
+        }
+
         const form = document.getElementById('weborder');
 
         form.addEventListener('submit', (e) => {
