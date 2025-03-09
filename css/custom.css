@@ -1,11 +1,18 @@
 html {
     background-color: #E8E2D2;
   }
+input:focus:invalid {
+  background: url("https://assets.digitalocean.com/labs/icons/exclamation-triangle-fill.svg") no-repeat 95% 50%;
+  background-size: 25px;
+  border: 1px solid darkorange;
 
-  .center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    /* width: 50%; */
-  }
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  /* width: 50%; */
+}
+
