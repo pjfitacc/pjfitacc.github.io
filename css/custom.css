@@ -11,6 +11,15 @@ html {
   /* width: 50%; */
 }
 
+#loading-element {
+  color: #6a64f1;
+  padding-top: 40px;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5vw;
+  display: none;
+}
+
 
 input:focus:invalid {
   background: url("/images/exclamation-mark-svgrepo-com.svg") no-repeat 95% 50%;
