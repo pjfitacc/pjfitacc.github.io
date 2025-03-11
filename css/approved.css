@@ -1,0 +1,24 @@
+body{
+    display:grid;
+    place-items:center
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+article {
+    width: 70%;
+}
+html, body {
+    height: 100%;
+}
+.main {
+    height: 100%;
+    width: 100%;
+    display: table;
+}
+
+.coin {
+    height: 200%;
+}
