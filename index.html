@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/formbold.css">
     <script src="js/index.js"></script>
+    <script src="config.js"></script>
 </head>
 
 <body>
@@ -226,6 +227,40 @@
         </div>
     </div>
     <div id="loading-element" aria-busy="true">Sending you to the secure payment gateway...</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let baseUrl;
+
+            function updateUrl(bValue) {
+                if (window.location.protocol === "file:") {
+                    if (typeof FILE_PATH !== "undefined") {
+                        baseUrl = FILE_PATH.replace(/[^/]+$/, "approved.html");
+                    } else {
+                        baseUrl = "File path not found!";
+                    }
+                } else {
+                    let url = window.location.origin + window.location.pathname;
+                    baseUrl = url.replace(/[^/]+$/, "approved.html");
+                }
+
+                // Append new query parameters
+                let finalUrl = baseUrl + "?m=10&b=" + encodeURIComponent(bValue);
+
+                // Update display and input field
+                document.getElementsByName("post_return_url_approved")[0].value = finalUrl;
+            }
+
+            // Initialize with default value
+            updateUrl("No preference. Let PJF decide for me.");
+
+            // Event listener for select dropdown
+            document.getElementById("beneficiary").addEventListener("change", function () {
+                let selectedOption = this.options[this.selectedIndex].text; // Get selected option text
+                updateUrl(selectedOption);
+            });
+        });
+    </script>
 </body>
 
 </html>

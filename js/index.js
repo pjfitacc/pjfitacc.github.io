@@ -4,6 +4,20 @@ window.addEventListener("pageshow", (event) => {
     }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    let baseUrl;
+
+    if (window.location.origin === "null" || window.location.protocol === "file:") {
+        // Extract base path from file URL
+        baseUrl = window.location.href.split("/").slice(0, 3).join("/");
+    } else {
+        // Use origin for web URLs
+        baseUrl = window.location.origin;
+    }
+
+
+});
+
 function hideSpinnerAndMessage() {
     document.getElementById('donation-page').style.display = "block";
     document.getElementById('loading-element').style.display = "none";
