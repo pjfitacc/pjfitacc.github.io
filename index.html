@@ -240,8 +240,15 @@
                         baseUrl = "File path not found!";
                     }
                 } else {
-                    let url = window.location.origin + window.location.pathname;
-                    baseUrl = url.replace(/[^/]+$/, "approved.html");
+                    let url = window.location.origin;
+                    let path = window.location.pathname;
+
+                    // Ensure we replace or add "approved.html" correctly
+                    if (path === "/" || path === "") {
+                        baseUrl = url + "/approved.html"; // If no path, just append
+                    } else {
+                        baseUrl = url + path.replace(/[^/]+$/, "approved.html"); // Replace last part of path
+                    }
                 }
 
                 // Append updated parameters
@@ -250,6 +257,7 @@
                 // Update display and input field
                 document.getElementsByName("post_return_url_approved")[0].value = finalUrl;
             }
+
 
             // Get default values
             let mValue = document.getElementById("item_cost").value;
