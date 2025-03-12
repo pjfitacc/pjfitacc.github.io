@@ -232,7 +232,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             let baseUrl;
 
-            function updateUrl(bValue) {
+            function updateUrl(mValue, bValue) {
                 if (window.location.protocol === "file:") {
                     if (typeof FILE_PATH !== "undefined") {
                         baseUrl = FILE_PATH.replace(/[^/]+$/, "approved.html");
@@ -244,20 +244,33 @@
                     baseUrl = url.replace(/[^/]+$/, "approved.html");
                 }
 
-                // Append new query parameters
-                let finalUrl = baseUrl + "?m=10&b=" + encodeURIComponent(bValue);
+                // Append updated parameters
+                let finalUrl = baseUrl + "?m=" + encodeURIComponent(mValue) + "&b=" + encodeURIComponent(bValue);
 
                 // Update display and input field
                 document.getElementsByName("post_return_url_approved")[0].value = finalUrl;
             }
 
-            // Initialize with default value
-            updateUrl("No preference. Let PJF decide for me.");
+            // Get default values
+            let mValue = document.getElementById("item_cost").value;
+            let bValue = "No preference. Let PJF decide for me.";
 
-            // Event listener for select dropdown
+            // Initialize with default values
+            updateUrl(mValue, bValue);
+
+            // Event listener for beneficiary selection
             document.getElementById("beneficiary").addEventListener("change", function () {
-                let selectedOption = this.options[this.selectedIndex].text; // Get selected option text
-                updateUrl(selectedOption);
+                bValue = this.options[this.selectedIndex].text; // Get selected option text
+                updateUrl(mValue, bValue);
+            });
+
+            // Event listener for item cost input
+            document.getElementById("item_cost").addEventListener("input", function () {
+                let newValue = parseInt(this.value, 10);
+                if (!isNaN(newValue) && newValue >= 1) {
+                    mValue = newValue;
+                    updateUrl(mValue, bValue);
+                }
             });
         });
     </script>
