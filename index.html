@@ -2,54 +2,16 @@
 <html lang="en">
 
 <head>
+    <title>Giving to the Philippine Jesuit Foundation</title>
+    <link rel="icon" type="image/x-icon" href="https://www.phjesuits.org/pjf/pjf.gif">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
     <link rel="stylesheet" href="css/pico.jade.min.css" />
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/formbold.css">
-    <script>
-        window.addEventListener("pageshow", (event) => {
-            if (event.persisted) {
-                hideSpinnerAndMessage();
-            }
-        });
-
-        function hideSpinnerAndMessage() {
-            document.getElementById('donation-page').style.display = "block";
-            document.getElementById('loading-element').style.display = "none";
-        }
-
-        const form = document.getElementById('weborder');
-
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-        });
-
-        function submitDonationForm() {
-            let fieldsPassed = checkMandatoryFields();
-
-            if (fieldsPassed) {
-                showLoadingElement()
-            } else {
-                return fieldsPassed
-            }
-        }
-        function checkMandatoryFields() {
-        //     checkbox
-            let checkbox = document.getElementById("supportCheckbox");
-            if (!checkbox.checked) {
-                alert("Please agree to the terms, conditions, and policies.");
-                return false;
-            }
-            return true;
-        }
-        function showLoadingElement() {
-          document.getElementById('donation-page').style.display = "none";
-          document.getElementById('loading-element').style.display = "flex";
-        }
-    </script>
-    <title>Giving to the Philippine Jesuit Foundation</title>
+    <script src="js/index.js"></script>
+    <script src="config.js"></script>
 </head>
 
 <body>
@@ -265,6 +227,53 @@
         </div>
     </div>
     <div id="loading-element" aria-busy="true">Sending you to the secure payment gateway...</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let baseUrl;
+
+            function updateUrl(mValue, bValue) {
+                if (window.location.protocol === "file:") {
+                    if (typeof FILE_PATH !== "undefined") {
+                        baseUrl = FILE_PATH.replace(/[^/]+$/, "approved.html");
+                    } else {
+                        baseUrl = "File path not found!";
+                    }
+                } else {
+                    let url = window.location.origin + window.location.pathname;
+                    baseUrl = url.replace(/[^/]+$/, "approved.html");
+                }
+
+                // Append updated parameters
+                let finalUrl = baseUrl + "?m=" + encodeURIComponent(mValue) + "&b=" + encodeURIComponent(bValue);
+
+                // Update display and input field
+                document.getElementsByName("post_return_url_approved")[0].value = finalUrl;
+            }
+
+            // Get default values
+            let mValue = document.getElementById("item_cost").value;
+            let bValue = "No preference. Let PJF decide for me.";
+
+            // Initialize with default values
+            updateUrl(mValue, bValue);
+
+            // Event listener for beneficiary selection
+            document.getElementById("beneficiary").addEventListener("change", function () {
+                bValue = this.options[this.selectedIndex].text; // Get selected option text
+                updateUrl(mValue, bValue);
+            });
+
+            // Event listener for item cost input
+            document.getElementById("item_cost").addEventListener("input", function () {
+                let newValue = parseInt(this.value, 10);
+                if (!isNaN(newValue) && newValue >= 1) {
+                    mValue = newValue;
+                    updateUrl(mValue, bValue);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
