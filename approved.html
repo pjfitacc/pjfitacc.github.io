@@ -39,9 +39,33 @@
     </div>
 
     </article>
+    
 
   </main>
 
+  <article>
+    <div class="grid">
 
+        <form name="form1" method="post" action="https://secure.quantumgateway.com/cgi/web_order.php"> 
+            <p>I would also like to make this a recurring donation ($ <span class="pesovalue">0</span>): </p>
+            <input name="gwlogin" type="hidden" value="phimar11Dev"> 
+            <div style="text-align: left;">
+                <span class="label">Weekly: </span><input name="RID" type="radio" value="1"> (Every Tuesday)<br>
+                <span class="label">Monthly: </span><input name="RID" type="radio" value="2"> (Every 1st of the month)<br>
+                <span class="label">Monthly: </span><input name="RID" type="radio" value="3"> (Every 14th of the month)<br>
+            </div>
+            <!--$1.00 = Php43.57--><br>
+            <input type="hidden" name="override_recur" value="Y">
+            <input class="cost" name="item_cost" type="hidden" value="0.00"> 
+            <input name="initial_amount" type="hidden" value="0.00"> 
+            <input name="post_return_url" type="hidden" value="https://phjesuits.org/pjf/recurring_thankyou.php">
+            <p> 
+                <input name="item_qty" type="hidden" id="1_qty" value="1" size="3"> 
+                <input type="submit" name="button" id="button" value="Submit"> 
+            </p> 
+            </form>
+    </div>
+    
+</article>
 </body>
 </html>
